@@ -33,8 +33,23 @@
 (def dimensions
   (map parse-dimensions input-rows))
 
-(def total-wrapping-paper
-  (reduce + (map #(apply wrapping-paper-sqft %) dimensions)))
+(defn aggregate-presents [fn]
+  (reduce + (map #(apply fn %) dimensions)))
+
+(def total-wrapping-paper (aggregate-presents wrapping-paper-sqft))
 
 ; part 1 solution:
 (println total-wrapping-paper)
+
+(defn volume-of-box [l w h]
+  (* l w h))
+
+(defn shortest-distance-of-sides [l w h]
+  (* 2 (min (+ l w) (+ l h) (+ w h))))
+
+(defn ribbon-for-present [l w h]
+  (+ (shortest-distance-of-sides l w h) (volume-of-box l w h)))
+
+(def total-ribbon (aggregate-presents ribbon-for-present))
+
+(println total-ribbon)
