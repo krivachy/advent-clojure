@@ -1,26 +1,26 @@
- (ns day1.day1)
+(ns day1.day1)
 
- (def input
+(def input
   (slurp "day1.in"))
 
- (defn input-filtered [character]
-   (filter #(= % character)
-           (seq input)))
+(defn input-filtered [character]
+  (filter #(= % character)
+          (seq input)))
 
- (def up
-   (count (input-filtered \()))
- (def down
-   (count (input-filtered \))))
+(def up
+  (count (input-filtered \()))
+(def down
+  (count (input-filtered \))))
 
- (def final-floor
-   (- up down))
+(def final-floor
+  (- up down))
 
 ; part 1 solution
- (println
-   final-floor)
+(println
+  final-floor)
 
- (defn move-direction [char]
-   (if (= char \() 1 -1))
+(defn move-direction [char]
+  (if (= char \() 1 -1))
 
 (defn find-enter-basement [input]
   (loop [remaining input
@@ -33,8 +33,8 @@
         (inc index)                                         ; know the index
         (+ current-floor (move-direction (first remaining))))))) ; recur by adding to the floor the up/down direction
 
- (def basement-entry
-   (find-enter-basement input))
+(def basement-entry
+  (find-enter-basement input))
 
 ; part 2 solution
- (println basement-entry)
+(println basement-entry)
