@@ -3,24 +3,22 @@
 
 (def input (slurp "day4.in"))
 
-(defn five-leading-zeros? [string]
-  (.startsWith string "00000"))
-
-(defn good-hash? [number]
-  (five-leading-zeros? (digest/md5 (str input number))))
+(defn good-hash? [number matching-prefix]
+  (.startsWith (digest/md5 (str input number)) matching-prefix))
 
 (defn positive-numbers
   ([] (positive-numbers 1))
   ([n] (lazy-seq (cons n (positive-numbers (inc n))))))
 
 
-(defn search-hashes [starting-number]
+(defn search-hashes [starting-number matching-prefix]
   (loop [number starting-number]
-    (if (good-hash? number)
+    (if (good-hash? number matching-prefix)
       number
       (recur (inc number)))))
 
-(def result (search-hashes 1))
-
 ; Solution part 1
-(println result)
+(println (search-hashes 1 "00000"))
+
+; Solution part 2
+(println (search-hashes 1 "00000"))
