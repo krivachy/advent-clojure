@@ -21,4 +21,4 @@
 (println (search-hashes 1 "00000"))
 
 ; Solution part 2
-(println (search-hashes 1 "00000"))
+(println (search-hashes 1 "000000"))
