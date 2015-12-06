@@ -1,4 +1,5 @@
-(ns day3.day3)
+(ns day3.day3
+  (:require [clojure.set :as set]))
 
 (defrecord Position [x y])
 
@@ -11,17 +12,14 @@
 
 (def initial-pos
   (Position. 0 0))
+; Called a map, but in reality a set
 (def initial-map
   ; first present is already delivered
-  {initial-pos 1})
+  #{initial-pos})
 
 (def input (slurp "day3.in"))
 
-(defn move-on-map [map next-pos]
-  (merge map
-         {next-pos (+ (get map next-pos 0) 1)}))
-
-(defn travel-map [route initial-map]
+(defn travel-map [route]
   (loop [remaining-route route
          current-position initial-pos
          map initial-map]
@@ -31,9 +29,9 @@
         (recur
           (rest remaining-route)
           next-pos
-          (move-on-map map next-pos))))))
+          (conj map next-pos))))))
 
-(def traveled-map (travel-map input initial-map))
+(def traveled-map (travel-map input))
 
 (def at-least-one-present (count traveled-map))
 
@@ -42,20 +40,15 @@
 
 
 ; PART 2
-
-(def robo-initial-map
-  ; robot and santa both deliver here
-  {initial-pos 2})
-
 (def santa-route
   (take-nth 2 input))
 
 (def robot-route
   (take-nth 2 (rest input)))
 
-(def santas-map (travel-map santa-route robo-initial-map))
-(def robots-map (travel-map robot-route robo-initial-map))
+(def santas-map (travel-map santa-route))
+(def robots-map (travel-map robot-route))
 
-(def full-map (merge santas-map robots-map))
+(def full-map (set/union santas-map robots-map))
 
 (println (count full-map))
