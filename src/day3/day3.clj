@@ -21,7 +21,7 @@
   (merge map
          {next-pos (+ (get map next-pos 0) 1)}))
 
-(defn travel-map [route]
+(defn travel-map [route initial-map]
   (loop [remaining-route route
          current-position initial-pos
          map initial-map]
@@ -33,9 +33,29 @@
           next-pos
           (move-on-map map next-pos))))))
 
-(def traveled-map (travel-map input))
+(def traveled-map (travel-map input initial-map))
 
 (def at-least-one-present (count traveled-map))
 
 ; solution to part 1
 (println at-least-one-present)
+
+
+; PART 2
+
+(def robo-initial-map
+  ; robot and santa both deliver here
+  {initial-pos 2})
+
+(def santa-route
+  (take-nth 2 input))
+
+(def robot-route
+  (take-nth 2 (rest input)))
+
+(def santas-map (travel-map santa-route robo-initial-map))
+(def robots-map (travel-map robot-route robo-initial-map))
+
+(def full-map (merge santas-map robots-map))
+
+(println (count full-map))
