@@ -36,3 +36,28 @@
   (count (filter nice-string? input-rows)))
 
 (println (count-nice-strings input))
+
+(defn rule-4 [s]
+  (loop [string s
+         strings #{}]
+    (if (< (count string) 2)
+      false
+      (if (contains? strings (apply str (take 2 string)))
+        true
+        (recur (rest string) (conj strings (apply str (take 2 string))))))))
+
+(defn rule-5 [s]
+  (loop [string (seq s)]
+    (if (< (count string) 3)
+      false
+        (if (= (string 0) (string 2))
+          true
+          (recur (rest string))))))
+
+(defn nice-string-2? [string]
+  (and (rule-4 string) (rule-5 string)))
+
+(defn count-nice-strings-2 [input-rows]
+  (count (filter nice-string-2? input-rows)))
+
+(println (count-nice-strings-2 input))
