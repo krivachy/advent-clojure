@@ -25,9 +25,9 @@
 (defn turn-on-one! [grid x y] (mutate-grid! grid x y true))
 (defn turn-off-one! [grid x y] (mutate-grid! grid x y false))
 
-(defn toggle-range! [grid fromX toX fromY toY] (action-on-grid! grid toggle-grid! fromX toX fromY toY))
-(defn turn-on-range! [grid fromX toX fromY toY] (action-on-grid! grid turn-on-one! fromX toX fromY toY))
-(defn turn-off-range! [grid fromX toX fromY toY] (action-on-grid! grid turn-off-one! fromX toX fromY toY))
+(defn toggle-range! [grid fromX fromY toX toY] (action-on-grid! grid toggle-grid! fromX fromY toX toY))
+(defn turn-on-range! [grid fromX fromY toX toY] (action-on-grid! grid turn-on-one! fromX fromY toX toY))
+(defn turn-off-range! [grid fromX fromY toX toY] (action-on-grid! grid turn-off-one! fromX fromY toX toY))
 
 (defn command-function! [command-words args]
   (do
